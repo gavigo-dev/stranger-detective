@@ -12,7 +12,7 @@
                         <NuxtPage />
                     </div>
                     <div class="flex-0 py-5 flex justify-center">
-                        <a href="/">
+                        <a href="https://gavigo-dev.netlify.app/" target="_blank">
                             <Image src="/img/logo-wide-light.png" width="150" />
                         </a>
                     </div>
@@ -37,7 +37,6 @@ useSeoMeta({
     ogTitle: 'Stranger Detective - gavigo.dev',
     ogDescription: 'App to help playing stranger detective',
     ogImage: 'https://gavigo-dev.netlify.app/img/stranger-detective/project-cover.png',
-    ogUrl: 'https://gavigo-dev.netlify.app/stranger-detective',
     twitterCard: 'summary_large_image'
 })
 
