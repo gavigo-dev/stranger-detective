@@ -14,9 +14,14 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 useHead({
-    title: 'Gavigo Utils'
+    title: 'Stranger Detective App',
+    description: 'App to help playing stranger detective',
+    ogTitle: 'Stranger Detective - gavigo.dev',
+    ogDescription: 'App to help playing stranger detective',
+    ogImage: 'https://gavigo-dev.netlify.app/img/stranger-detective/project-cover.png',
+    twitterCard: 'summary_large_image'
 })
 
 const loading = ref(true)

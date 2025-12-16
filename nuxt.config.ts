@@ -10,6 +10,8 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
     app: {
         head: {
+            charset: 'utf-8',
+            viewport: 'width=device-width, initial-scale=1',
             title: 'Stranger Detective',
             link: [
                 {
@@ -19,11 +21,7 @@ export default defineNuxtConfig({
             ]
         }
     },
-    runtimeConfig: {
-        public: {
-            gavigoUrl: import.meta.env.GAVIGO_URL
-        }
-    },
+    modules: ['@vite-pwa/nuxt'],
     css: ['~/assets/css/tailwind.css', '~/assets/css/primeicons.css'],
     vite: {
         plugins: [
@@ -32,5 +30,80 @@ export default defineNuxtConfig({
                 resolvers: [PrimeVueResolver()]
             })
         ]
+    },
+    pwa: {
+        registerType: 'autoUpdate',
+        strategies: 'generateSW',
+        srcDir: 'public',
+        manifest: {
+            name: 'Stranger Detective',
+            short_name: 'Stranger Detective',
+            theme_color: '#111214',
+            background_color: '#131419',
+            start_url: '/',
+            lang: 'pt-br',
+            description: 'descrição do seu APP',
+            screenshots: [
+                {
+                    src: 'public/manifest/apple-touch-icon.png',
+                    sizes: '320x320',
+                    type: 'image/png',
+                    form_factor: 'wide',
+                    label: 'Stranger Detective'
+                }
+            ],
+            icons: [
+                {
+                    src: 'public/manifest/web-app-manifest-192x192.png',
+                    sizes: '192x192',
+                    type: 'image/png'
+                },
+                {
+                    src: 'public/manifest/web-app-manifest-512x512.png',
+                    sizes: '512x512',
+                    type: 'image/png'
+                }
+            ]
+        },
+        workbox: {
+            cleanupOutdatedCaches: true,
+            clientsClaim: true,
+            skipWaiting: true,
+
+            navigateFallback: '/',
+
+            runtimeCaching: [
+                {
+                    urlPattern: ({ request }) => request.destination === 'document',
+                    handler: 'NetworkFirst',
+                    options: {
+                        cacheName: 'pages'
+                    }
+                },
+                {
+                    urlPattern: ({ request }) =>
+                        ['style', 'script', 'worker'].includes(request.destination),
+                    handler: 'StaleWhileRevalidate',
+                    options: {
+                        cacheName: 'assets'
+                    }
+                },
+                {
+                    urlPattern: ({ request }) => request.destination === 'image',
+                    handler: 'CacheFirst',
+                    options: {
+                        cacheName: 'images',
+                        expiration: {
+                            maxEntries: 100,
+                            maxAgeSeconds: 60 * 60 * 24 * 30 // 30 dias
+                        }
+                    }
+                }
+            ]
+        },
+        devOptions: {
+            enabled: true,
+            type: 'module'
+        }
     }
 })
