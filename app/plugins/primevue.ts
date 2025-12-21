@@ -15,6 +15,12 @@ export default defineNuxtPlugin((nuxtApp) => {
             }
         },
         pt: {
+            Checkbox: {
+                box: (options: any) => {
+                    return options.context.checked ? 'border-red-500 bg-transparent' : ''
+                },
+                icon: 'bg-red-500 text-red-100'
+            },
             Button: {
                 root: (options: any) => {
                     return {

@@ -13,7 +13,7 @@
                 <h1 class="text-2xl font-medium">Ficha de jogo</h1>
                 <Button
                     class="bg-red-400"
-                    label="Limpar"
+                    label="Limpar tudo"
                     icon="pi pi-trash"
                     @click="store.$reset()"
                 />
@@ -31,13 +31,6 @@
                     >
                         <div class="border-r flex-1 flex items-center justify-between pl-1">
                             <p>{{ player.name }}</p>
-                            <button
-                                v-if="!!store.tableState[player.key]"
-                                class="px-2 self-stretch hover:cursor-pointer"
-                                @click="store.tableState[player.key] = ''"
-                            >
-                                <i class="pi pi-replay text-xs" />
-                            </button>
                         </div>
                         <Marker v-model="store.tableState[player.key]" />
                     </div>
@@ -45,14 +38,14 @@
             </div>
 
             <div class="mb-10">
-                <h1 class="text-2xl my-6 font-medium">
+                <h1 class="text-2xl my-6 font-medium flex items-end justify-between">
                     Anotações
                     <button
                         v-if="!!store.notes"
-                        class="px-2 self-stretch hover:cursor-pointer"
+                        class="px-2 self-stretch text-xs hover:cursor-pointer"
                         @click="store.notes = ''"
                     >
-                        <i class="pi pi-replay text-xs" />
+                        <i class="pi pi-trash" />
                     </button>
                 </h1>
                 <Textarea
@@ -68,10 +61,10 @@
 
 <script setup>
 import Marker from '~/components/custom/Marker.vue'
-import { useStrangerDetectiveFichaStore } from '~/store/ficha'
+import { useFichaStore } from '~/store/ficha'
 
-const { playersArray, placesArray, weaponsArray } = useStrangerDetectiveUtils()
-const store = useStrangerDetectiveFichaStore()
+const { playersArray, placesArray, weaponsArray } = useUtils()
+const store = useFichaStore()
 
 const table = [
     { title: 'Assassino', items: playersArray },

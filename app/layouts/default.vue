@@ -39,6 +39,9 @@ onMounted(() => {
     img.onload = () => {
         loading.value = false
     }
+    setTimeout(() => {
+        loading.value = false
+    }, 2000)
 })
 </script>
 

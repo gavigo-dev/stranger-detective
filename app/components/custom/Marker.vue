@@ -1,21 +1,41 @@
 <template>
-    <Select
-        class="bg-transparent"
-        :options="options"
-        option-label="label"
-        option-value="value"
-        :pt="{
-            root: 'w-8 h-8 rounded-none border-none',
-            label: 'p-0 flex items-center justify-center',
-            dropdown: 'hidden'
-        }"
-    />
+    <Button class="bg-transparent w-9 h-9" @click="selectNew">
+        {{ getEmoji(selected) }}
+    </Button>
 </template>
 
 <script setup>
+const props = defineProps({
+    modelValue: {
+        type: String,
+        default: ''
+    }
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+const selected = computed({
+    get() {
+        return props.modelValue
+    },
+    set(val) {
+        emit('update:modelValue', val)
+    }
+})
+
+const counter = ref(0)
 const options = [
-    { label: '✅', value: 'guessed' },
+    { label: '', value: '' },
     { label: '❌', value: 'excluded' },
-    { label: '❓', value: 'doubted' }
+    { label: '✅', value: 'guessed' },
+    { label: '❔', value: 'doubted' }
 ]
+const getEmoji = (key) => options.find((item) => item.value === key).label
+
+function selectNew() {
+    counter.value++
+    if (counter.value >= options.length) counter.value = 0
+
+    selected.value = options[counter.value].value
+}
 </script>

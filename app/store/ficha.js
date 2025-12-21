@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { getAllKeys } from '~/data/constants'
 
-export const useStrangerDetectiveFichaStore = defineStore('strangerDetectiveFichaStore', {
+export const useFichaStore = defineStore('fichaStore', {
     state: () => ({
         tableState: getAllKeys(),
         notes: ''
