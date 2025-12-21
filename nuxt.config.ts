@@ -4,6 +4,11 @@ import { PrimeVueResolver } from '@primevue/auto-import-resolver'
 import dotenv from 'dotenv'
 
 dotenv.config()
+const env = import.meta.env
+
+console.log('\n\n====================================')
+console.log('IS LOCAL: ', env.IS_LOCAL)
+console.log('====================================\n\n')
 
 export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
@@ -22,7 +27,7 @@ export default defineNuxtConfig({
         }
     },
     modules: ['@vite-pwa/nuxt'],
-    css: ['~/assets/css/tailwind.css', '~/assets/css/primeicons.css'],
+    css: ['~/assets/css/tailwind.css', 'primeicons/primeicons.css'],
     vite: {
         plugins: [
             tailwindcss(),
@@ -73,37 +78,42 @@ export default defineNuxtConfig({
             navigateFallback: '/',
 
             runtimeCaching: [
+                // páginas
                 {
-                    urlPattern: ({ request }) => request.destination === 'document',
-                    handler: 'NetworkFirst',
+                    urlPattern: ({ request }) => request.mode === 'navigate',
+                    handler: 'CacheFirst',
                     options: {
                         cacheName: 'pages'
                     }
                 },
+
+                // js / css
                 {
                     urlPattern: ({ request }) =>
-                        ['style', 'script', 'worker'].includes(request.destination),
-                    handler: 'StaleWhileRevalidate',
+                        ['script', 'style', 'worker'].includes(request.destination),
+                    handler: 'CacheFirst',
                     options: {
                         cacheName: 'assets'
                     }
                 },
+
+                // imagens
                 {
                     urlPattern: ({ request }) => request.destination === 'image',
                     handler: 'CacheFirst',
                     options: {
-                        cacheName: 'images',
-                        expiration: {
-                            maxEntries: 100,
-                            maxAgeSeconds: 60 * 60 * 24 * 30 // 30 dias
-                        }
+                        cacheName: 'images'
                     }
+                },
+                {
+                    urlPattern: /\/_nuxt\/.*$/,
+                    handler: 'NetworkOnly'
                 }
             ]
         },
         devOptions: {
-            enabled: true,
-            type: 'module'
-        }
+            enabled: false
+        },
+        disable: env.IS_LOCAL === 'TRUE'
     }
 })
