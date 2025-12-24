@@ -31,13 +31,6 @@
                     >
                         <div class="border-r flex-1 flex items-center justify-between pl-1">
                             <p>{{ player.name }}</p>
-                            <button
-                                v-if="!!store.tableState[player.key]"
-                                class="px-2 self-stretch hover:cursor-pointer"
-                                @click="store.tableState[player.key] = ''"
-                            >
-                                <i class="pi pi-replay text-xs" />
-                            </button>
                         </div>
                         <Marker v-model="store.tableState[player.key]" />
                     </div>
