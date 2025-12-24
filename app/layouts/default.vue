@@ -5,7 +5,7 @@
         />
         <div class="absolute top-0 w-full h-full z-10 flex justify-center items-center">
             <div
-                class="w-full h-full md:max-w-100 min-w-80 bg-slate-300 bg-[url('/img/stranger-detective/background.png')] bg-blend-multiply bg-center bg-cover"
+                class="relative w-full h-full md:max-w-100 min-w-80 bg-slate-300 bg-[url('/img/stranger-detective/background.png')] bg-blend-multiply bg-center bg-cover"
             >
                 <div class="text-neutral-300 h-svh overflow-y-auto flex flex-col">
                     <div class="grow">

@@ -1,4 +1,5 @@
-import { PLACES, WEAPONS, PLAYERS as SUSPECTS } from '../app/data/constants'
+import { defineStore } from 'pinia'
+import { PLACES, WEAPONS, PLAYERS as SUSPECTS } from '~/data/constants'
 
 export const useGameStore = defineStore('game', {
     state: () => ({
