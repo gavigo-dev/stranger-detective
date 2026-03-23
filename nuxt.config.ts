@@ -22,6 +22,30 @@ export default defineNuxtConfig({
         }
     },
     modules: ['@vite-pwa/nuxt'],
+    pwa: {
+        registerType: 'autoUpdate',
+
+        strategies: 'generateSW',
+
+        manifest: false, // você já tem o manifest
+
+        srcDir: 'public',
+        filename: 'manifest.webmanifest',
+
+        workbox: {
+            cleanupOutdatedCaches: true,
+            clientsClaim: true,
+            skipWaiting: true,
+
+            navigateFallback: '/',
+            globPatterns: ['**/*.{js,css,html,png,svg,ico}']
+        },
+
+        devOptions: {
+            enabled: true,
+            type: 'module'
+        }
+    },
     css: ['~/assets/css/tailwind.css', '~/assets/css/primeicons.css'],
     vite: {
         plugins: [
