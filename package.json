@@ -5,7 +5,8 @@
     "scripts": {
         "lint": "eslint . --ext .js,.ts,.vue",
         "lint:fix": "eslint . --ext .js,.ts,.vue --fix",
-        "build": "nuxt build && nuxt preview",
+        "build": "nuxt build",
+        "build:p": "nuxt build && nuxt preview",
         "dev": "nuxt dev --host",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
