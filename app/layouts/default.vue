@@ -35,7 +35,7 @@ const loading = ref(true)
 
 onMounted(() => {
     const img = new Image()
-    img.src = '/img/stranger-detective/background.png'
+    img.src = '/img/stranger-detective/background.webp'
     img.onload = () => {
         loading.value = false
     }
